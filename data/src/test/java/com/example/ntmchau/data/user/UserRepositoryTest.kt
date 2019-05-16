@@ -1,4 +1,4 @@
-package com.example.ntmchau.data.main
+package com.example.ntmchau.data.user
 
 import com.example.ntmchau.data.ApiCommons.Companion.api
 import com.example.ntmchau.data.entity.UserInfo
@@ -28,7 +28,7 @@ class UserRepositoryTest {
         testObserver.awaitTerminalEvent()
         testObserver.assertNoErrors()
 
-        testObserver.assertValueCount(1)
+        testObserver.assertValue { it.isNotEmpty() }
     }
 
     @Test

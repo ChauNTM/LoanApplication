@@ -1,6 +1,5 @@
 package com.example.ntmchau.loanapp.home
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.ntmchau.data.entity.Bank
 import com.example.ntmchau.data.entity.OfferInfo
@@ -10,7 +9,6 @@ import com.example.ntmchau.loanapp.helpers.verifyViewStates
 import com.example.ntmchau.loanapp.main.home.HomeViewModel
 import io.reactivex.Single
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito

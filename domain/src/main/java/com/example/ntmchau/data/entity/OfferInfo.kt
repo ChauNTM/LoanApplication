@@ -16,4 +16,4 @@ data class OfferInfo(
 
 }
 
-class Bank(val name: String, val logo: String)
+data class Bank(val name: String, val logo: String)
