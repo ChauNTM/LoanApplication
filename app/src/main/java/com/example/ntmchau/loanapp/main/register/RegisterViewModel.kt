@@ -1,5 +1,7 @@
 package com.example.ntmchau.loanapp.main.register
 
+import android.provider.SyncStateContract
+import android.util.Log
 import com.example.ntmchau.data.main.register.*
 import com.example.ntmchau.loanapp.LoanApp
 import com.example.ntmchau.loanapp.R
@@ -13,6 +15,10 @@ class RegisterViewModel @Inject constructor(
     private val getProvincesUseCase: GetProvincesUseCase,
     private val sendRequestRegister: SendRequestRegister
 ) : DispatcherViewModel<RegisterViewState, RegisterAction>() {
+
+    companion object {
+        private val TAG = RegisterViewModel::class.java.simpleName
+    }
 
     override val reducer = RegisterReducer()
 
@@ -36,6 +42,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     private fun sendRequestRegister() {
+        Log.d(TAG, "sendRequestRegister")
         val fullName = currentViewState().fullName
         val phoneNumber = currentViewState().phoneNumber
         val nationalIdNumber = currentViewState().nationalIdNumber
@@ -61,7 +68,11 @@ class RegisterViewModel @Inject constructor(
             if (!nationalIdNumberError.first) return dispatch(NotifyInvalidUserInfo(nationalIdNumberError.second?.error))
         }
 
-        NotifyInvalidUserInfo(null)
+        if (reducer.mapMonthlyIncomeStringToValue(currentViewState().monthlyIncome) < VerifyUtils.LOWEST_MONTHLY_INCOME) {
+            return dispatch(NotifyInvalidUserInfo(app.getString(R.string.invalid_monthly_income)))
+        }
+
+        currentViewState().errorMessage = null
         sendRequestRegister()
     }
 

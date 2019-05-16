@@ -23,6 +23,7 @@
         "095", "096", "097", "098", "099"]</string>
     <string name="national_id_number_not_enough_characters">CMND chỉ được chứa 9 hoặc 12 chữ số</string>
     <string name="user_info_field_not_blank">Thông tin có dấu (*) là bắt buộc</string>
+    <string name="invalid_monthly_income">Thu nhập phải lớn hơn 3000000</string>
 
     <string name="success">Gửi request thành công</string>
 

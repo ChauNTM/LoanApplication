@@ -22,7 +22,6 @@ class UserRepository @Inject constructor(private val apiInterface: ApiInterface)
 
     override fun getProvinces(): Single<MutableList<String>> {
         return apiInterface.getProvinces().map {
-            Log.d("", "getProvinces provinces=$it")
             it.provinces
         }
     }

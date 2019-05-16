@@ -2,6 +2,8 @@ package com.example.ntmchau.data.main.register
 
 import com.example.ntmchau.data.base.viewstate.Reducer
 import com.example.ntmchau.data.entity.UserInfo
+import com.example.ntmchau.data.main.home.HomeAction
+import com.example.ntmchau.data.main.home.HomeViewState
 
 class RegisterReducer : Reducer<RegisterViewState, RegisterAction> {
 
@@ -55,7 +57,8 @@ class RegisterReducer : Reducer<RegisterViewState, RegisterAction> {
     }
 
     fun mapMonthlyIncomeStringToValue(monthlyIncomeString: String): Long {
-        return monthlyIncomeString.substring(2).toLong()
+        return if (monthlyIncomeString.first() == '>') return monthlyIncomeString.substring(2).toLong() + 1
+        else 1
     }
 
 }

@@ -3,7 +3,11 @@ package com.example.ntmchau.loanapp.utils
 import android.content.Context
 import com.example.ntmchau.loanapp.R
 
-class VerifyUtils (val applicationContext: Context) {
+class VerifyUtils (private val applicationContext: Context) {
+
+    companion object {
+        const val LOWEST_MONTHLY_INCOME = 3000000L
+    }
 
     private val valid4PrefixPhoneNumbers = mutableListOf(
         "0120", "0121", "0122", "0123", "0124", "0125", "0126", "0127", "0128", "0129",
