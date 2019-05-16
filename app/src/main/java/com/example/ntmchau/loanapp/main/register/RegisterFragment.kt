@@ -52,7 +52,6 @@ class RegisterFragment : ViewModelFragment() {
         super.onResume()
         viewModel.init()
         viewModel.dispatch(UpdateMonthlyIncomeList(monthlyIncomeList))
-
     }
 
     override fun initViewModels() {

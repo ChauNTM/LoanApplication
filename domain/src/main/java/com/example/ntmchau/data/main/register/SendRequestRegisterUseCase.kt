@@ -6,7 +6,7 @@ import com.example.ntmchau.data.entity.UserInfo
 import io.reactivex.Single
 import javax.inject.Inject
 
-class SendRequestRegister @Inject constructor(
+class SendRequestRegisterUseCase @Inject constructor(
     private val userRepository: UserDataSource,
     schedulersProvider: SchedulersProvider
 ) : SingleUseCase<SendRequestParams, UserInfo>(schedulersProvider) {

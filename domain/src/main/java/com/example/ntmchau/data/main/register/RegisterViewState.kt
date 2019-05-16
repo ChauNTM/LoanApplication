@@ -17,6 +17,7 @@ object GetProvinces : RegisterAction()
 data class UpdateProvinces(val provinces: MutableList<String>) : RegisterAction()
 data class UpdateMonthlyIncomeList(val monthlyIncomeList: MutableList<Int>): RegisterAction()
 data class NotifyInvalidUserInfo(val errorMessage: String?): RegisterAction()
+data class SendRequestRegister(val fullName: String, val phoneNumber: String, val nationalIdNumber: String, val monthlyIncome: Long, val province: String) : RegisterAction()
 data class UpdateSendRequestResult(val userInfo: UserInfo) : RegisterAction()
 
 object ShowConnectionError : RegisterAction()

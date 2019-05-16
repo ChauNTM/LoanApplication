@@ -39,7 +39,7 @@ dependencies {
 
     //robolectric
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
-    testImplementation "org.robolectric:shadows-supportv4:$robolectricShadowsVersion"
+    testImplementation "org.robolectric:robolectric:4.4-SNAPSHOT"
 
     //support libs
     implementation "androidx.appcompat:appcompat:$androidxVersion"

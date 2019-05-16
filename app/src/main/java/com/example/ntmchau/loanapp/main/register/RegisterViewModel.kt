@@ -1,19 +1,18 @@
 package com.example.ntmchau.loanapp.main.register
 
-import android.provider.SyncStateContract
+import android.content.Context
 import android.util.Log
 import com.example.ntmchau.data.main.register.*
-import com.example.ntmchau.loanapp.LoanApp
 import com.example.ntmchau.loanapp.R
 import com.example.ntmchau.loanapp.base.DispatcherViewModel
 import com.example.ntmchau.loanapp.utils.VerifyUtils
 import javax.inject.Inject
 
 class RegisterViewModel @Inject constructor(
-    private val app: LoanApp,
+    private val appContext: Context,
     private val verifyUtils: VerifyUtils,
     private val getProvincesUseCase: GetProvincesUseCase,
-    private val sendRequestRegister: SendRequestRegister
+    private val sendRequestRegisterUseCase: SendRequestRegisterUseCase
 ) : DispatcherViewModel<RegisterViewState, RegisterAction>() {
 
     companion object {
@@ -31,6 +30,7 @@ class RegisterViewModel @Inject constructor(
     override fun dispatchAsync(state: RegisterViewState, action: RegisterAction) {
         when (action) {
             is GetProvinces -> getProvinces()
+            is SendRequestRegister -> sendRequestRegister(action.fullName, action.phoneNumber, action.nationalIdNumber, action.monthlyIncome, action.province)
         }
     }
 
@@ -41,14 +41,10 @@ class RegisterViewModel @Inject constructor(
         ))
     }
 
-    private fun sendRequestRegister() {
-        Log.d(TAG, "sendRequestRegister")
-        val fullName = currentViewState().fullName
-        val phoneNumber = currentViewState().phoneNumber
-        val nationalIdNumber = currentViewState().nationalIdNumber
-        val monthlyIncome = reducer.mapMonthlyIncomeStringToValue(currentViewState().monthlyIncome)
-        val province = currentViewState().province
-        manage(sendRequestRegister.execute(SendRequestParams(fullName, phoneNumber, nationalIdNumber, monthlyIncome, province)).subscribe(
+    private fun sendRequestRegister(fullName: String, phoneNumber: String, nationalIdNumber: String, monthlyIncome: Long, province: String) {
+        Log.d(TAG, "sendRequestRegisterUseCase")
+
+        manage(sendRequestRegisterUseCase.execute(SendRequestParams(fullName, phoneNumber, nationalIdNumber, monthlyIncome, province)).subscribe(
             { userInfo -> dispatch(UpdateSendRequestResult(userInfo)) },
             { dispatch(ShowConnectionError) }
         ))
@@ -57,7 +53,7 @@ class RegisterViewModel @Inject constructor(
     fun verifyUserInfo() {
 
         if (currentViewState().fullName.isEmpty() || currentViewState().phoneNumber.isEmpty() || currentViewState().province.isEmpty() || currentViewState().monthlyIncome.isEmpty()) {
-            return dispatch(NotifyInvalidUserInfo(app.getString(R.string.user_info_field_not_blank)))
+            return dispatch(NotifyInvalidUserInfo(appContext.getString(R.string.user_info_field_not_blank)))
         }
 
         val phoneError = verifyUtils.verifyPhoneNumber(currentViewState().phoneNumber)
@@ -69,11 +65,11 @@ class RegisterViewModel @Inject constructor(
         }
 
         if (reducer.mapMonthlyIncomeStringToValue(currentViewState().monthlyIncome) < VerifyUtils.LOWEST_MONTHLY_INCOME) {
-            return dispatch(NotifyInvalidUserInfo(app.getString(R.string.invalid_monthly_income)))
+            return dispatch(NotifyInvalidUserInfo(appContext.getString(R.string.invalid_monthly_income)))
         }
 
         currentViewState().errorMessage = null
-        sendRequestRegister()
+        dispatch(SendRequestRegister(currentViewState().fullName, currentViewState().phoneNumber, currentViewState().nationalIdNumber, reducer.mapMonthlyIncomeStringToValue(currentViewState().monthlyIncome), currentViewState().province))
     }
 
 }

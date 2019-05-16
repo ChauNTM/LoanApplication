@@ -33,9 +33,6 @@ abstract class BaseViewModel<T : BaseViewState> : ViewModel() {
     }
 
     protected fun updateViewState(newViewState: T, actionName: String? = null) {
-        actionName?.let {
-            Log.d(TAG, "updateViewState $actionName $newViewState")
-        }
         viewState.value = newViewState
     }
 
