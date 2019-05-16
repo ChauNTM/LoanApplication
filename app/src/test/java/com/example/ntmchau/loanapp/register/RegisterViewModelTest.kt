@@ -153,4 +153,88 @@ class RegisterViewModelTest  {
             viewModel.currentViewState().copy(errorMessage = context.getString(R.string.phone_number_invalid_prefix))
         )
     }
+
+    @Test
+    fun `NotifyInvalidUserInfo is emitted when user have not inputted name`() {
+        viewModel.currentViewState().fullName = ""
+        viewModel.currentViewState().nationalIdNumber = userInfo.nationalIdNumber
+        viewModel.currentViewState().monthlyIncome = "> 3000000"
+        viewModel.currentViewState().province = userInfo.province
+        viewModel.currentViewState().phoneNumber = "0976897678"
+        viewModel.verifyUserInfo()
+
+        testObserver.verifyViewStates(
+            viewModel.currentViewState().copy(errorMessage = context.getString(R.string.user_info_field_not_blank))
+        )
+    }
+
+    @Test
+    fun `NotifyInvalidUserInfo is emitted when user have not inputted phone number`() {
+        viewModel.currentViewState().fullName = userInfo.fullName
+        viewModel.currentViewState().nationalIdNumber = userInfo.nationalIdNumber
+        viewModel.currentViewState().monthlyIncome = "> 3000000"
+        viewModel.currentViewState().province = userInfo.province
+        viewModel.currentViewState().phoneNumber = ""
+        viewModel.verifyUserInfo()
+
+        testObserver.verifyViewStates(
+            viewModel.currentViewState().copy(errorMessage = context.getString(R.string.user_info_field_not_blank))
+        )
+    }
+
+    @Test
+    fun `NotifyInvalidUserInfo is emitted when user have not inputted wrong national id number`() {
+        viewModel.currentViewState().fullName = userInfo.fullName
+        viewModel.currentViewState().nationalIdNumber = "11111111111111111"
+        viewModel.currentViewState().monthlyIncome = "> 3000000"
+        viewModel.currentViewState().province = userInfo.province
+        viewModel.currentViewState().phoneNumber = userInfo.phoneNumber
+        viewModel.verifyUserInfo()
+
+        testObserver.verifyViewStates(
+            viewModel.currentViewState().copy(errorMessage = context.getString(R.string.national_id_number_not_enough_characters))
+        )
+    }
+
+    @Test
+    fun `NotifyInvalidUserInfo is emitted when user's monthly income is below 3000000`() {
+        viewModel.currentViewState().fullName = userInfo.fullName
+        viewModel.currentViewState().nationalIdNumber = userInfo.nationalIdNumber
+        viewModel.currentViewState().monthlyIncome = "< 3000000"
+        viewModel.currentViewState().province = userInfo.province
+        viewModel.currentViewState().phoneNumber = userInfo.phoneNumber
+        viewModel.verifyUserInfo()
+
+        testObserver.verifyViewStates(
+            viewModel.currentViewState().copy(errorMessage = context.getString(R.string.invalid_monthly_income))
+        )
+    }
+
+    @Test
+    fun `Proper view state is emitted when user input user's info correctly`() {
+        viewModel.currentViewState().fullName = userInfo.fullName
+        viewModel.currentViewState().nationalIdNumber = userInfo.nationalIdNumber
+        viewModel.currentViewState().monthlyIncome = ("> 3000000")
+        viewModel.currentViewState().province = userInfo.province
+        viewModel.currentViewState().phoneNumber = userInfo.phoneNumber
+
+        val userInputState = viewModel.currentViewState().copy()
+        viewModel.verifyUserInfo()
+
+        testObserver.verifyViewStates(
+            userInputState,
+            viewModel.currentViewState()
+        )
+    }
+
+    @Test
+    fun `UpdateSendRequestResult is emitted is emitted when SendRequestRegister is dispatched`() {
+        val defaultViewState = viewModel.currentViewState().copy()
+        viewModel.dispatch(SendRequestRegister(userInfo.fullName, userInfo.phoneNumber, userInfo.nationalIdNumber, userInfo.monthlyIncome, userInfo.province))
+
+        testObserver.verifyViewStates(
+            defaultViewState,
+            defaultViewState.copy(userInfo = userInfo)
+        )
+    }
 }
