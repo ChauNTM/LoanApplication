@@ -1,0 +1,23 @@
+apply plugin: 'java-library'
+apply plugin: "kotlin"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    api 'javax.inject:javax.inject:1'
+
+    //retrofit & okhttp
+    api "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    api "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    api "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    api "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    api "com.squareup.okhttp3:okhttp-urlconnection:$okHttpVersion"
+
+    api "com.google.code.gson:gson:$rootProject.gsonVersion"
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"

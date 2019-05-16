@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">App Đăng Kí Vay Vốn</string>
+    <string name="offer_info">Thông tin khoản vay</string>
+    <string name="amount">Hạn mức (VNĐ)</string>
+    <string name="tenor">Thời hạn (Tháng)</string>
+    <string name="interest_rate">Lãi suất (%/Năm)</string>
+    <string name="bank">Ngân hàng</string>
+    <string name="register">Đăng kí</string>
+
+    <string name="user_info">Thông tin cá nhân</string>
+    <string name="phone_number">Số điện thoại (*)</string>
+    <string name="full_name">Họ tên (*)</string>
+    <string name="national_id_number">Số chứng minh nhân dân</string>
+    <string name="province">Địa chỉ (*)</string>
+    <string name="monthly_income">Thu nhập hàng tháng (*)</string>
+    <string name="send">Gửi đăng kí ngay</string>
+
+    <string name="phone_number_not_enough_characters">Số điện thoại phải bao gồm 10 hoặc 11 chữ số</string>
+    <string name="phone_number_invalid_prefix">Số điện thoại phải thuộc một trong những đầu số sau ["0120",
+        "0121", "0122", "0123", "0124", "0125", "0126", "0127", "0128", "0129",
+        "0162", "0163", "0164", "0165", "0166", "0167", "0168", "0169", "0186",
+        "0188", "0199", "086", "088", "089", "090", "091", "092", "093", "094",
+        "095", "096", "097", "098", "099"]</string>
+    <string name="national_id_number_not_enough_characters">CMND chỉ được chứa 9 hoặc 12 chữ số</string>
+    <string name="user_info_field_not_blank">Thông tin có dấu (*) là bắt buộc</string>
+
+    <string name="success">Gửi request thành công</string>
+
+
+    <integer-array name="monthly_income_array">
+        <item>10000000</item>
+        <item>3000000</item>
+    </integer-array>
+
+
+</resources>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="androidx.lifecycle.LiveData"/>
+        <variable name="homeViewState"
+                  type="LiveData&lt;com.example.ntmchau.data.main.home.HomeViewState>"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView android:id="@+id/offer_info_title"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintRight_toRightOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintBottom_toTopOf="@+id/amount_title"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:textAlignment="center"
+                  android:text="@string/offer_info"
+                  android:textAllCaps="true"
+                  android:textSize="17sp"
+                  android:padding="20dp"
+                  android:layout_marginTop="20dp"/>
+
+        <TextView android:id="@+id/amount_title"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintRight_toLeftOf="@+id/amount"
+                  app:layout_constraintTop_toBottomOf="@+id/offer_info_title"
+                  app:layout_constraintBottom_toTopOf="@+id/tenor_title"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/amount"
+                  android:textAllCaps="true"
+                  android:padding="10dp"/>
+
+        <TextView android:id="@+id/amount"
+                  app:layout_constraintRight_toRightOf="parent"
+                  app:layout_constraintLeft_toRightOf="@+id/amount_title"
+                  app:layout_constraintTop_toBottomOf="@+id/offer_info_title"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  tools:text="@string/amount"
+                  android:textAllCaps="true"
+                  android:padding="10dp"
+                  android:layout_marginStart="27dp"
+                  android:text="@{homeViewState.offerInfo.amount}"/>
+
+        <TextView android:id="@+id/tenor_title"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintRight_toLeftOf="@+id/tenor"
+                  app:layout_constraintTop_toBottomOf="@+id/amount_title"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/tenor"
+                  android:textAllCaps="true"
+                  android:padding="10dp"/>
+
+        <TextView android:id="@+id/tenor"
+                  app:layout_constraintRight_toRightOf="parent"
+                  app:layout_constraintLeft_toRightOf="@+id/tenor_title"
+                  app:layout_constraintTop_toBottomOf="@+id/amount"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:textAllCaps="true"
+                  android:padding="10dp"
+                  tools:text="@string/tenor"
+                  android:layout_marginStart="15dp"
+                  android:text="@{homeViewState.offerInfo.tenor}"/>
+
+        <TextView android:id="@+id/interest_rate_title"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintRight_toLeftOf="@+id/interest_rate"
+                  app:layout_constraintTop_toBottomOf="@+id/tenor_title"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/interest_rate"
+                  android:textAllCaps="true"
+                  android:padding="10dp"/>
+
+        <TextView android:id="@+id/interest_rate"
+                  app:layout_constraintRight_toRightOf="parent"
+                  app:layout_constraintLeft_toRightOf="@+id/interest_rate_title"
+                  app:layout_constraintTop_toBottomOf="@+id/tenor"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:textAllCaps="true"
+                  android:padding="10dp"
+                  tools:text="@string/interest_rate"
+                  android:layout_marginStart="15dp"
+                  android:text="@{homeViewState.offerInfo.interestRateValue}"/>
+
+        <TextView android:id="@+id/bank_title"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintRight_toRightOf="parent"
+                  app:layout_constraintTop_toBottomOf="@+id/interest_rate_title"
+                  app:layout_constraintBottom_toTopOf="@+id/bank_logo"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:text="@string/bank"
+                  android:textAllCaps="true"
+                  android:padding="10dp"/>
+
+
+        <ImageView android:id="@+id/bank_logo"
+                   app:layout_constraintLeft_toLeftOf="parent"
+                   app:layout_constraintRight_toRightOf="parent"
+                   app:layout_constraintTop_toBottomOf="@+id/bank_title"
+                   app:layout_constraintBottom_toTopOf="@+id/bank_name"
+                   app:imageUrl="@{homeViewState.offerInfo.bank.logo}"
+                   android:layout_width="100dp"
+                   android:layout_height="100dp"
+                   android:layout_marginTop="10dp"/>
+
+        <TextView android:id="@+id/bank_name"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintRight_toRightOf="parent"
+                  app:layout_constraintTop_toBottomOf="@+id/bank_logo"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:textAlignment="center"
+                  android:padding="10dp"
+                  tools:text="@string/bank"
+                  android:text="@{homeViewState.offerInfo.bank.name}"/>
+
+        <Button android:id="@+id/register"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bank_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:padding="10dp"
+                tools:text="@string/register"
+                android:layout_marginTop="20dp"
+                android:text="@string/register" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
